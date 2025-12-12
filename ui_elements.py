@@ -1,7 +1,7 @@
 import turtle
 import time
 
-DEVELOPERS = ["Izma Arshad", "Shreya", "Yashasvini", "Rajan"]
+DEVELOPERS = ["Izma Arshad", "Shreya Jagtap", "Yashaswini", "Saarang"]
 FONT_FAMILY = "Courier"
 
 
@@ -99,10 +99,11 @@ def display_ending_screen(screen, is_victory=True, ending_type="level2"):
             pass
         story = [
             {"text": "WORD COMPLETE!", "color": "#00ff00", "y": 60, "size": 26, "style": "bold", "delay": 2.0},
-            {"text": "The truck screeches to a halt...", "color": "#ffff00", "y": 30, "size": 16, "delay": 2.0},
-            {"text": '"Correct. You have earned the coordinates."', "color": "#00ffff", "y": 0, "size": 14, "style": "italic", "delay": 2.5},
-            {"text": "The restraints disintegrate into glowing dust...", "color": "#ffffff", "y": -30, "size": 14, "delay": 2.0},
-            {"text": "LEVEL 2 COMPLETE!\nApproaching the Gem...", "color": "#00ff88", "y": 0, "size": 22, "style": "bold", "delay": 2.5},
+            {"text": "The neural scanner powers down...", "color": "#ffff00", "y": 30, "size": 16, "delay": 2.0},
+            {"text": "The electrodes detach from your temples.", "color": "#ffffff", "y": 0, "size": 14, "delay": 2.0},
+            {"text": '"Impressive. Your mind is... resilient."', "color": "#00ffff", "y": 0, "size": 14, "style": "italic", "delay": 2.5},
+            {"text": "A hidden door slides open before you.", "color": "#ffffff", "y": -30, "size": 14, "delay": 2.0},
+            {"text": "LEVEL 2 COMPLETE!\nThe Gem awaits...", "color": "#00ff88", "y": 0, "size": 22, "style": "bold", "delay": 2.5},
         ]
         cfg = {
             "title": "GEM OF REALITY OBTAINED!", "title_color": "#ffd700",
@@ -132,15 +133,16 @@ def display_ending_screen(screen, is_victory=True, ending_type="level2"):
             }
         else:
             story = [
-                {"text": "THE TRUCK ADVANCES...", "color": "#ff0000", "y": 60, "size": 22, "style": "bold", "delay": 2.0},
-                {"text": "Your mind couldn't solve the puzzle in time.", "color": "#ff3333", "y": 30, "size": 14, "delay": 2.0},
-                {"text": "The simulation claims another soul...", "color": "#ff6666", "y": 0, "size": 14, "style": "italic", "delay": 2.5},
-                {"text": '"Perhaps in another iteration, Player."', "color": "#00ffff", "y": 20, "size": 16, "style": "italic", "delay": 2.5},
-                {"text": '"The Gem of Reality remains hidden..."', "color": "#888888", "y": -10, "size": 14, "style": "italic", "delay": 2.5},
+                {"text": "NEURAL OVERLOAD DETECTED", "color": "#ff0000", "y": 60, "size": 22, "style": "bold", "delay": 2.0},
+                {"text": "The scanner intensifies...", "color": "#ff3333", "y": 30, "size": 14, "delay": 2.0},
+                {"text": "Your memories begin to slip away.", "color": "#ff6666", "y": 0, "size": 14, "delay": 2.0},
+                {"text": "First your name... then your past...", "color": "#ff9999", "y": -30, "size": 14, "style": "italic", "delay": 2.5},
+                {"text": '"EXTRACTION COMPLETE. SUBJECT NEUTRALIZED."', "color": "#00ffff", "y": 20, "size": 14, "style": "bold", "delay": 2.5},
+                {"text": "An empty shell remains in the chamber.", "color": "#888888", "y": -10, "size": 14, "style": "italic", "delay": 2.5},
             ]
             cfg = {
-                "title": "GAME OVER", "title_color": "#ff0000",
-                "subtitle": "You remain trapped in the simulation forever.", "subtitle_color": "#ff6666",
+                "title": "MIND ERASED", "title_color": "#ff0000",
+                "subtitle": "Your memories now belong to the system.", "subtitle_color": "#ff6666",
                 "dev_color": "#00aaff", "footer": "Press ESC to exit or restart to try again!"
             }
     

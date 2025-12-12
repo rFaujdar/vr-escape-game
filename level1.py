@@ -209,7 +209,6 @@ class Drone:
         self.y = random.randint(-200, 200)
         self.dx = random.choice([-3, -2, 2, 3])
         self.dy = random.choice([-3, -2, 2, 3])
-        self.rotation = 0
     
     def draw(self):
         self.turtle.clear()

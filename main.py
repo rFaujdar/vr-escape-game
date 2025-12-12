@@ -3,7 +3,7 @@ import time
 import level1
 import wheel
 import hangman
-from ui_elements import create_turtle, clear_turtles, safe_clear_all, display_ending_screen
+from ui_elements import create_turtle, display_ending_screen
 
 screen = level1.screen
 screen.title("VR Escape - The Gem of Reality")
@@ -137,15 +137,16 @@ def run_level_2():
     
     level2_lines = [
         "The darkness fades...",
-        "You find yourself lying on a deserted highway.",
-        "Your wrists and ankles are bound with glowing restraints.",
+        "You awaken in a cold, sterile chamber.",
+        "Electrodes are attached to your temples.",
         "",
-        "Far down the road, headlights flicker to life.",
-        "A massive truck begins rolling forward.",
+        "A robotic voice echoes through the room:",
+        '"Welcome to THE MIND GAME."',
+        '"Your brain is now connected to our neural scanner."',
         "",
-        '"This is RACEMAX."',
-        '"You cannot run. You cannot dodge."',
-        '"Your mind is your only weapon."',
+        '"Solve the word puzzle to prove your intelligence."',
+        '"Fail... and your memories will be extracted."',
+        '"One by one. Until nothing remains."',
     ]
     show_story(level2_lines, line_delay=2.0)
     

@@ -21,12 +21,12 @@ def level_2_hangman(state, screen, text, lives_display, player, update_displays,
     text.clear()
     text.color("#ff6b35")
     text.goto(0, 200)
-    text.write("LEVEL 2: RACEMAX", align="center", font=("Courier", 20, "bold"))
+    text.write("LEVEL 2: THE MIND GAME", align="center", font=("Courier", 20, "bold"))
     
     subtitle = create_turtle()
     subtitle.color("#ffaa00")
     subtitle.goto(0, 165)
-    subtitle.write("Type letters to guess the word before the truck crushes you!", 
+    subtitle.write("Guess the word before your memories are extracted!", 
                    align="center", font=("Courier", 11, "normal"))
 
     words = ["ESCAPE", "REALITY", "SYSTEM", "CYBER", "DIGITAL", "MATRIX", "PLAYER", "PORTAL"]
@@ -128,7 +128,7 @@ def level_2_hangman(state, screen, text, lives_display, player, update_displays,
                         game_over_ending()
                 return True
             else:
-                show_message(f"CRUSHED! {state[lives_key]} lives remaining. Retry!", 2, -80)
+                show_message(f"MEMORY EXTRACTED! {state[lives_key]} lives remaining. Retry!", 2, -80)
                 word, guessed[:] = reset_word(words)
                 used_letters.clear()
                 wrong_guesses = 0
@@ -200,7 +200,8 @@ def level_2_hangman(state, screen, text, lives_display, player, update_displays,
         if not unrevealed:
             return
         
-        guessed[random.choice(unrevealed)] = word[random.choice(unrevealed)]
+        pos = random.choice(unrevealed)
+        guessed[pos] = word[pos]
         hints_used += 1
         
         if truck.xcor() > -350:
