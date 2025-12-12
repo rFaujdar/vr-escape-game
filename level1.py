@@ -46,11 +46,10 @@ def update_lives_display(lives):
     for i in range(lives):
         draw_heart(hearts_turtle_ref, -280 + (i * 20), 255, size=7, color="#ff0066")
     
-    # Add separator and controls - positioned after hearts
+    # (Removed controls text here to avoid duplicate/overlapping HUD elements)
+    # Position hearts_turtle_ref so other code can add text nearby if needed
     hearts_turtle_ref.penup()
     hearts_turtle_ref.goto(-280 + (lives * 20) + 10, 250)
-    hearts_turtle_ref.color("cyan")
-    hearts_turtle_ref.write("| WASD to Move", font=("Courier", 14, "bold"))
 
 
 # Game status display
@@ -308,22 +307,54 @@ class Drone:
         self.turtle.penup()
     
     def move(self):
+        # Basic movement
         self.x += self.dx
         self.y += self.dy
-        
+
+        # Screen bounds bounce
         if self.x < -350 or self.x > 350:
             self.dx = -self.dx
             self.x = max(-350, min(350, self.x))
         if self.y < -250 or self.y > 250:
             self.dy = -self.dy
             self.y = max(-250, min(250, self.y))
-        
+
+        # Building collisions: push the drone out along a small nudge
+        # and add a tiny random offset to the bounce so it doesn't
+        # repeatedly flip in-place and get stuck.
         for building in buildings:
             if building.collides_with(self.x, self.y):
-                self.dx = -self.dx
-                self.dy = -self.dy
-                self.x += self.dx * 2
-                self.y += self.dy * 2
+                # Small randomization to help escape tight corners
+                try:
+                    # Reverse direction with a slight random change
+                    self.dx = -self.dx + random.choice([-1, 0, 1])
+                    self.dy = -self.dy + random.choice([-1, 0, 1])
+                except Exception:
+                    self.dx = -self.dx
+                    self.dy = -self.dy
+
+                # Ensure non-zero velocity so drone keeps moving
+                if self.dx == 0:
+                    self.dx = random.choice([-2, 2])
+                if self.dy == 0:
+                    self.dy = random.choice([-2, 2])
+
+                # Nudge the drone away a bit more to resolve overlap
+                self.x += self.dx * 4
+                self.y += self.dy * 4
+
+                # If still colliding, perform a vector push directly away
+                if building.collides_with(self.x, self.y):
+                    vx = self.x - building.x
+                    vy = self.y - building.y
+                    if vx == 0 and vy == 0:
+                        vx, vy = random.choice([(1, 0), (-1, 0), (0, 1), (0, -1)])
+                    dist = math.hypot(vx, vy) or 1.0
+                    nx, ny = vx / dist, vy / dist
+                    push_dist = building.size + 18 + 6
+                    self.x = building.x + nx * push_dist
+                    self.y = building.y + ny * push_dist
+
                 break
 
 
@@ -467,6 +498,11 @@ def clear_level():
             try:
                 hearts_turtle_ref.clear()
                 hearts_turtle_ref.hideturtle()
+            except Exception:
+                pass
+            # Release reference so future updates create a fresh turtle
+            try:
+                hearts_turtle_ref = None
             except Exception:
                 pass
     except Exception:

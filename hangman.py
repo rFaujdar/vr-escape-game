@@ -53,6 +53,34 @@ def level_2_hangman(state, screen, text, lives_display, player, update_displays,
     truck.shapesize(3, 4)
     truck.penup()
     truck.goto(-350, 0)
+    # Hide the visual truck — we keep the logical position for gameplay
+    try:
+        truck.hideturtle()
+    except Exception:
+        pass
+
+    # Add simple wheels so the truck isn't a plain red box
+    truck_wheel_left = turtle.Turtle()
+    truck_wheel_left.hideturtle()
+    truck_wheel_left.shape('circle')
+    truck_wheel_left.color('#111111')
+    truck_wheel_left.shapesize(0.6, 0.6)
+    truck_wheel_left.penup()
+
+    truck_wheel_right = turtle.Turtle()
+    truck_wheel_right.hideturtle()
+    truck_wheel_right.shape('circle')
+    truck_wheel_right.color('#111111')
+    truck_wheel_right.shapesize(0.6, 0.6)
+    truck_wheel_right.penup()
+
+    # Wheels and truck visuals are intentionally disabled; keep a no-op
+    # updater so movement logic that calls it doesn't error.
+    def update_truck_wheels():
+        return
+
+    # place wheels at initial position
+    update_truck_wheels()
 
     # Display
     word_display = turtle.Turtle()
@@ -151,6 +179,16 @@ def level_2_hangman(state, screen, text, lives_display, player, update_displays,
         except Exception:
             pass
         try:
+            truck_wheel_left.clear()
+            truck_wheel_left.hideturtle()
+        except Exception:
+            pass
+        try:
+            truck_wheel_right.clear()
+            truck_wheel_right.hideturtle()
+        except Exception:
+            pass
+        try:
             subtitle.clear()
         except Exception:
             pass
@@ -194,6 +232,10 @@ def level_2_hangman(state, screen, text, lives_display, player, update_displays,
                     guessed[i] = letter
             if truck.xcor() > -350:
                 truck.setx(truck.xcor() - 30)
+                try:
+                    update_truck_wheels()
+                except Exception:
+                    pass
             word_display.color("#00ff00")
             update_word_display()
             screen.update()
@@ -202,6 +244,10 @@ def level_2_hangman(state, screen, text, lives_display, player, update_displays,
         else:
             wrong_guesses += 1
             truck.setx(truck.xcor() + 50)
+            try:
+                update_truck_wheels()
+            except Exception:
+                pass
             word_display.color("#ff0000")
             update_word_display()
             screen.update()
@@ -225,6 +271,10 @@ def level_2_hangman(state, screen, text, lives_display, player, update_displays,
                     used_letters.clear()
                     wrong_guesses = 0
                     truck.goto(-350, 0)
+                    try:
+                        update_truck_wheels()
+                    except Exception:
+                        pass
 
         update_word_display()
         try:
@@ -264,6 +314,10 @@ def level_2_hangman(state, screen, text, lives_display, player, update_displays,
         hints_used += 1
         if truck.xcor() > -350:
             truck.setx(max(truck.xcor() - 40, -350))
+            try:
+                update_truck_wheels()
+            except Exception:
+                pass
         update_word_display()
         screen.update()
         word_display.color("#00ffff")

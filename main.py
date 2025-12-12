@@ -33,11 +33,16 @@ intro_turtle.hideturtle()
 intro_turtle.penup()
 intro_turtle.color("white")
 
+# Use level1's lives display (hearts) instead of creating a second lives turtle here.
+# main will delegate display updates to level1.update_lives_display
+# Create a minimal `lives_display` turtle so other modules (e.g. hangman)
+# can be passed a valid turtle object. We won't draw HUD from this turtle
+# during Level 1 (level1 handles its own hearts), but hangman expects
+# a `lives_display` parameter so keep a placeholder here.
 lives_display = turtle.Turtle()
 lives_display.hideturtle()
-lives_display.color("cyan")
 lives_display.penup()
-lives_display.goto(-350, 250)
+lives_display.color("cyan")
 
 # Global ESC to exit
 screen.listen()
@@ -45,8 +50,15 @@ screen.onkey(lambda: screen.bye(), "Escape")
 
 
 def update_displays():
-    lives_display.clear()
-    lives_display.write(f"Lives: {lives} | WASD to move", font=("Courier", 16, "bold"))
+    """Update HUD displays. Delegate lives display to `level1` to
+    avoid duplicate overlays (hearts + text)."""
+    try:
+        # Sync lives into level1 and let level1 draw its own hearts text
+        level1.lives = lives
+        level1.update_lives_display(level1.lives)
+    except Exception:
+        # If level1 isn't available for some reason, silently skip
+        pass
 
 
 def cleanup_level_turtles(keep=None):
@@ -64,7 +76,11 @@ def cleanup_level_turtles(keep=None):
         try:
             if id(t) in keep_ids:
                 continue
-            if t is text or t is msg or t is intro_turtle or t is lives_display:
+            # Keep our primary UI turtles and the level1 lives display
+            if (
+                t is text or t is msg or t is intro_turtle or t is lives_display or
+                (hasattr(level1, 'lives_display') and t is level1.lives_display)
+            ):
                 continue
             t.hideturtle()
             t.clear()
