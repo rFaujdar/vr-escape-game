@@ -1,7 +1,7 @@
 import turtle
 import time
 
-DEVELOPERS = ["Izma Arshad", "Shreya Jagtap", "Yashaswini", "Saarang"]
+DEVELOPERS = ["Izma Arshad", "Shreya", "Yashasvini", "Rajan"]
 FONT_FAMILY = "Courier"
 
 
@@ -84,7 +84,7 @@ def display_story_sequence(screen, messages, default_delay=2.0):
     return t
 
 
-def display_ending_screen(screen, is_victory=True):
+def display_ending_screen(screen, is_victory=True, ending_type="level2"):
     try:
         screen.tracer(0)
     except Exception:
@@ -114,18 +114,35 @@ def display_ending_screen(screen, is_victory=True):
             screen.bgcolor("#0a0008")
         except Exception:
             pass
-        story = [
-            {"text": "THE TRUCK ADVANCES...", "color": "#ff0000", "y": 60, "size": 22, "style": "bold", "delay": 2.0},
-            {"text": "Your mind couldn't solve the puzzle in time.", "color": "#ff3333", "y": 30, "size": 14, "delay": 2.0},
-            {"text": "The simulation claims another soul...", "color": "#ff6666", "y": 0, "size": 14, "style": "italic", "delay": 2.5},
-            {"text": '"Perhaps in another iteration, Player."', "color": "#00ffff", "y": 20, "size": 16, "style": "italic", "delay": 2.5},
-            {"text": '"The Gem of Reality remains hidden..."', "color": "#888888", "y": -10, "size": 14, "style": "italic", "delay": 2.5},
-        ]
-        cfg = {
-            "title": "GAME OVER", "title_color": "#ff0000",
-            "subtitle": "You remain trapped in the simulation forever.", "subtitle_color": "#ff6666",
-            "dev_color": "#00aaff", "footer": "Press ESC to exit or restart to try again!"
-        }
+        
+        if ending_type == "level1":
+            story = [
+                {"text": "THE DRONES CLOSE IN...", "color": "#ff0000", "y": 60, "size": 22, "style": "bold", "delay": 2.0},
+                {"text": "Their red eyes lock onto you.", "color": "#ff3333", "y": 30, "size": 14, "delay": 2.0},
+                {"text": "You feel electric shocks course through your body...", "color": "#ff6666", "y": 0, "size": 14, "delay": 2.5},
+                {"text": "Your consciousness begins to fade.", "color": "#ff9999", "y": -30, "size": 14, "style": "italic", "delay": 2.0},
+                {"text": '"SUBJECT CAPTURED. MEMORY WIPE INITIATED."', "color": "#00ffff", "y": 20, "size": 16, "style": "bold", "delay": 2.5},
+                {"text": "You forget who you are...", "color": "#888888", "y": -10, "size": 14, "style": "italic", "delay": 2.0},
+                {"text": "Forever a prisoner of the digital city.", "color": "#666666", "y": -40, "size": 14, "style": "italic", "delay": 2.5},
+            ]
+            cfg = {
+                "title": "CAPTURED", "title_color": "#ff0000",
+                "subtitle": "The drones have claimed another soul.", "subtitle_color": "#ff6666",
+                "dev_color": "#00aaff", "footer": "Press ESC to exit or restart to try again!"
+            }
+        else:
+            story = [
+                {"text": "THE TRUCK ADVANCES...", "color": "#ff0000", "y": 60, "size": 22, "style": "bold", "delay": 2.0},
+                {"text": "Your mind couldn't solve the puzzle in time.", "color": "#ff3333", "y": 30, "size": 14, "delay": 2.0},
+                {"text": "The simulation claims another soul...", "color": "#ff6666", "y": 0, "size": 14, "style": "italic", "delay": 2.5},
+                {"text": '"Perhaps in another iteration, Player."', "color": "#00ffff", "y": 20, "size": 16, "style": "italic", "delay": 2.5},
+                {"text": '"The Gem of Reality remains hidden..."', "color": "#888888", "y": -10, "size": 14, "style": "italic", "delay": 2.5},
+            ]
+            cfg = {
+                "title": "GAME OVER", "title_color": "#ff0000",
+                "subtitle": "You remain trapped in the simulation forever.", "subtitle_color": "#ff6666",
+                "dev_color": "#00aaff", "footer": "Press ESC to exit or restart to try again!"
+            }
     
     try:
         story_t = display_story_sequence(screen, story)

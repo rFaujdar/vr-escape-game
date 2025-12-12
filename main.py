@@ -69,10 +69,16 @@ def show_message(message, duration=2, y_pos=-50):
         pass
 
 
+def game_over_ending_level1():
+    global game_active
+    game_active = False
+    display_ending_screen(screen, is_victory=False, ending_type="level1")
+
+
 def game_over_ending():
     global game_active
     game_active = False
-    display_ending_screen(screen, is_victory=False)
+    display_ending_screen(screen, is_victory=False, ending_type="level2")
 
 
 def victory():
@@ -187,7 +193,7 @@ def main():
             game_active = False
             if level1.game_over:
                 time.sleep(1)
-                game_over_ending()
+                game_over_ending_level1()
     
     if game_active:
         run_wheel_of_fate()
